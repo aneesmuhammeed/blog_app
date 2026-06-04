@@ -1,7 +1,7 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class SupabaseSecrets {
-  // This file is gitignored locally. Put your real keys here only on your
-  // development machine and do NOT commit them.
-  // Example/template is provided in supabase_secrets.example.dart
-  static const supabaseUrl = "";
-  static const anonKey = "";
+  // Load from environment variables provided by flutter_dotenv.
+  static String get supabaseUrl => dotenv.env['SUPABASE_URL'] ?? '';
+  static String get anonKey => dotenv.env['SUPABASE_ANON_KEY'] ?? '';
 }
