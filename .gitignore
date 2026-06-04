@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Using BFG (install separately) — simpler
+bfg --delete-files supabase_secrets.dart
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+
+# Or use git filter-repo (recommended over filter-branch)
+git filter-repo --invert-paths --paths lib/core/secrets/supabase_secrets.dart
