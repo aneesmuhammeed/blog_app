@@ -49,9 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 isPassword: true,
               ),
               const SizedBox(height: 20),
-              AuthGradientButton(buttonText: "Sign In",onPressed: () {
-                
-              },),
+              AuthGradientButton(buttonText: "Sign In", onPressed: () {}),
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {

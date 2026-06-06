@@ -4,7 +4,11 @@ import 'package:newflu/core/theme/app_pallete.dart';
 class AuthGradientButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
-  const AuthGradientButton({super.key, required this.buttonText,required this.onPressed});
+  const AuthGradientButton({
+    super.key,
+    required this.buttonText,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
