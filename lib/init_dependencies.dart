@@ -3,6 +3,7 @@ import 'package:newflu/core/secrets/supabase_secrets.dart';
 import 'package:newflu/feature/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:newflu/feature/auth/data/repositories/auth_repository_impl.dart';
 import 'package:newflu/feature/auth/domain/repository/auth_repository.dart';
+import 'package:newflu/feature/auth/domain/usecases/user_log_in.dart';
 import 'package:newflu/feature/auth/domain/usecases/user_sign_up.dart';
 import 'package:newflu/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,6 +27,7 @@ void _initAuth() {
   servicelocator.registerFactory<AuthRepository>(() => AuthRepositoryImpl(servicelocator()));
 
   servicelocator.registerFactory(() => UserSignUp(servicelocator()));
+  servicelocator.registerFactory(() => UserLogIn(servicelocator()));
 
-  servicelocator.registerLazySingleton(() => AuthBloc(userSignUp: servicelocator()));
+  servicelocator.registerLazySingleton(() => AuthBloc(userSignUp: servicelocator(),userLogIn: servicelocator()));
 }
