@@ -12,6 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     : _userSignUp = userSignUp,
       super(AuthInitial()) {
     on<AuthSignUp>((event, emit) async {
+      emit(AuthLoading());
       final res = await _userSignUp(
         UserSignUpParams(
           password: event.password,
@@ -19,7 +20,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           name: event.name,
         ),
       );
-      res.fold((l) => emit(AuthFailure(l.message)), (user) => emit(AuthSucess(user)));
+      res.fold(
+        (l) => emit(AuthFailure(l.message)),
+        (user) => emit(AuthSucess(user)),
+      );
     });
   }
 }
