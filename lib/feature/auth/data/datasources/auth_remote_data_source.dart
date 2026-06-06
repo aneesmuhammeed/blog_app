@@ -42,6 +42,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.user == null) {
         throw ServerException("user is null");
       }
+
       return response.user!.id;
     } catch (e) {
       throw ServerException(e.toString());

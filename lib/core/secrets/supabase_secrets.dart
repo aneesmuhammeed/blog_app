@@ -1,7 +1,4 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 class SupabaseSecrets {
-  // Load from environment variables provided by flutter_dotenv.
-  static String get supabaseUrl => dotenv.env['SUPABASE_URL'] ?? '';
-  static String get anonKey => dotenv.env['SUPABASE_ANON_KEY'] ?? '';
+  static const supabaseUrl = 'https://nbumikzrhbemvnginkqm.supabase.co';
+  static const anonKey = 'sb_publishable_wEz22krmIqkAowsA-cMCQQ_8hqMJFVr';
 }

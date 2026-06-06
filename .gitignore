@@ -45,5 +45,4 @@ app.*.map.json
 /android/app/release
 
 # Supabase secrets
-lib/core/secrets/supabase_secrets.dart
-.env
+lib/core/secrets/supabase_secrets.dart\n

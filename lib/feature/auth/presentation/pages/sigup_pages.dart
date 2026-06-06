@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newflu/core/theme/app_pallete.dart';
+import 'package:newflu/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:newflu/feature/auth/presentation/pages/login_page.dart';
 import 'package:newflu/feature/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:newflu/feature/auth/presentation/widgets/auth_field.dart';
@@ -15,7 +17,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
-  final nameContoller = TextEditingController();
+  final nameController = TextEditingController();
   final passwordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
@@ -24,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    nameContoller.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
@@ -46,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 30),
               AuthField(hintText: "Email", controller: emailController),
               const SizedBox(height: 30),
-              AuthField(hintText: "Name", controller: nameContoller),
+              AuthField(hintText: "Name", controller: nameController),
               const SizedBox(height: 30),
               AuthField(
                 hintText: "Password",
@@ -54,7 +56,20 @@ class _SignUpPageState extends State<SignUpPage> {
                 isPassword: true,
               ),
               const SizedBox(height: 20),
-              AuthGradientButton(buttonText: "Sign Up"),
+              AuthGradientButton(
+                buttonText: "Sign Up",
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    context.read<AuthBloc>().add(
+                      AuthSignUp(
+                        password: passwordController.text.trim(),
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
+                      ),
+                    );
+                  }
+                },
+              ),
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {
