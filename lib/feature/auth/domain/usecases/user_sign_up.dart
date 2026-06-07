@@ -2,7 +2,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:newflu/core/error/failures.dart';
 import 'package:newflu/core/usecase/usecase.dart';
-import 'package:newflu/feature/auth/domain/entities/user.dart';
+import 'package:newflu/core/common/entities/user.dart';
 import 'package:newflu/feature/auth/domain/repository/auth_repository.dart';
 
 class UserSignUp implements UseCase<User, UserSignUpParams> {
