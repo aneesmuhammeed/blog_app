@@ -4,6 +4,7 @@ import 'package:newflu/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:newflu/core/theme/theme.dart';
 import 'package:newflu/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:newflu/feature/auth/presentation/pages/login_page.dart';
+import 'package:newflu/feature/blog/presentation/bloc/blog_bloc.dart';
 import 'package:newflu/feature/blog/presentation/pages/blog_page.dart';
 import 'package:newflu/init_dependencies.dart';
 
@@ -15,6 +16,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => servicelocator<AppUserCubit>()),
         BlocProvider(create: (_) => servicelocator<AuthBloc>()),
+        BlocProvider(create: (_) => servicelocator<BlogBloc>()),
       ],
       child: const MyApp(),
     ),
