@@ -7,6 +7,7 @@ import 'package:newflu/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:newflu/feature/auth/presentation/pages/sigup_pages.dart';
 import 'package:newflu/feature/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:newflu/feature/auth/presentation/widgets/auth_field.dart';
+import 'package:newflu/feature/blog/presentation/pages/blog_page.dart';
 
 class LoginPage extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => LoginPage());
@@ -39,6 +40,12 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state is AuthFailure) {
               showSnackBar(context, state.message);
+            } else if (state is AuthSucess) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                BlogPage.route(),
+                (route) => false,
+              );
             }
           },
           builder: (context, state) {
