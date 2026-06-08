@@ -9,8 +9,9 @@ import 'package:newflu/feature/auth/domain/usecases/user_log_in.dart';
 import 'package:newflu/feature/auth/domain/usecases/user_sign_up.dart';
 import 'package:newflu/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:newflu/feature/blog/data/datasources/blog_remote_data_source.dart';
-import 'package:newflu/feature/blog/data/repositories/lib/features/blog/data/repositories/blog_repository_impl.dart';
+import 'package:newflu/feature/blog/data/repositories/blog_repositories_impl.dart';
 import 'package:newflu/feature/blog/domain/repositories/blog_repository.dart';
+import 'package:newflu/feature/blog/domain/usecases/get_all_blogs.dart';
 import 'package:newflu/feature/blog/domain/usecases/upload_blog.dart';
 import 'package:newflu/feature/blog/presentation/bloc/blog_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -50,6 +51,7 @@ void _initAuth() {
     ),
   );
 }
+
 void _initBlog() {
   servicelocator.registerFactory<BlogRemoteDataSource>(
     () => BlogRemoteDataSourceImpl(servicelocator<SupabaseClient>()),
@@ -60,8 +62,10 @@ void _initBlog() {
   );
 
   servicelocator.registerFactory(() => UploadBlog(servicelocator()));
+  servicelocator.registerFactory(() => GetAllBlogs(servicelocator()));
 
   servicelocator.registerLazySingleton(
-    () => BlogBloc(uploadBlog: servicelocator<UploadBlog>()),
+    () => BlogBloc(uploadBlog: servicelocator<UploadBlog>(),
+    getAllBlogs: servicelocator<GetAllBlogs>()),
   );
 }

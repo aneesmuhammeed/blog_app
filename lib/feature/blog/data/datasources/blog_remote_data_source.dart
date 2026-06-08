@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:newflu/core/error/exceptions.dart';
 import 'package:newflu/feature/blog/data/models/blog_model.dart';
+import 'package:newflu/feature/blog/domain/entities/blog.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class BlogRemoteDataSource {
@@ -10,6 +11,7 @@ abstract interface class BlogRemoteDataSource {
     required File image,
     required BlogModel blog,
   });
+  Future<List<BlogModel>> getAllBlogs();
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -32,7 +34,7 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       throw ServerException(e.toString());
     }
   }
-  
+
   @override
   Future<String> uploadBlogImage({
     required File image,
@@ -48,4 +50,22 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       throw ServerException(e.toString());
     }
   }
+
+  @override
+  Future<List<BlogModel>> getAllBlogs() async {
+    // TODO: implement getAllBlogs
+    try {
+      final blogs = await supabaseClient.from('blogs').select('*,profiles(name)');
+      return blogs
+          .map(
+            (blog) => BlogModel.fromJson(
+              blog,
+            ).copyWith(posterName: blog['profiles']['name']),
+          )
+          .toList();
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
 }
+

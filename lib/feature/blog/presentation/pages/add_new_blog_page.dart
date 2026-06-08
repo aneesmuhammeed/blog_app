@@ -4,9 +4,12 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newflu/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:newflu/core/common/widgets/loader.dart';
 import 'package:newflu/core/theme/app_pallete.dart';
 import 'package:newflu/core/utils/pick_image.dart';
+import 'package:newflu/core/utils/show_snackbar.dart';
 import 'package:newflu/feature/blog/presentation/bloc/blog_bloc.dart';
+import 'package:newflu/feature/blog/presentation/pages/blog_page.dart';
 import 'package:newflu/feature/blog/presentation/widgets/blog_editor.dart';
 
 class AddNewBlogPage extends StatefulWidget {
@@ -71,9 +74,20 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
       ),
       body: BlocConsumer<BlogBloc, BlogState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is BlogFailure) {
+            showSnackBar(context, state.error);
+          } else if (state is BlogSucess) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              BlogPage.route(),
+              (route) => false,
+            );
+          }
         },
         builder: (context, state) {
+          if (state is BlogLoading) {
+            return Loader();
+          }
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
