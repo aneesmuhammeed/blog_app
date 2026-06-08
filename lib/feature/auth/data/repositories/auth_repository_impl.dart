@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:newflu/core/constants/constants.dart';
 import 'package:newflu/core/error/exceptions.dart';
 import 'package:newflu/core/error/failures.dart';
 import 'package:newflu/core/network/connection_checker.dart';
@@ -6,7 +7,6 @@ import 'package:newflu/feature/auth/data/datasources/auth_remote_data_source.dar
 import 'package:newflu/core/common/entities/user.dart';
 import 'package:newflu/feature/auth/data/models/user_models.dart';
 import 'package:newflu/feature/auth/domain/repository/auth_repository.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 class AuthRepositoryImpl implements AuthRepository {
   final ConnectionChecker connectionChecker;
@@ -45,14 +45,12 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, User>> _getUser(Future<User> Function() fn) async {
     try {
       if (!await (connectionChecker.isConnected)) {
-        return left(Failure(""));
+        return left(Failure(Constants.noConnectionErrorMessage));
       }
       final user = await fn();
 
       return right(user);
     } on ServerException catch (e) {
-      return left(Failure(e.message));
-    } on sb.AuthException catch (e) {
       return left(Failure(e.message));
     }
   }

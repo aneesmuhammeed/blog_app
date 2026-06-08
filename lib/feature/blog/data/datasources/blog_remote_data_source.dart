@@ -55,7 +55,9 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
   Future<List<BlogModel>> getAllBlogs() async {
     // TODO: implement getAllBlogs
     try {
-      final blogs = await supabaseClient.from('blogs').select('*,profiles(name)');
+      final blogs = await supabaseClient
+          .from('blogs')
+          .select('*,profiles(name)');
       return blogs
           .map(
             (blog) => BlogModel.fromJson(
@@ -63,9 +65,10 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
             ).copyWith(posterName: blog['profiles']['name']),
           )
           .toList();
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
   }
 }
-

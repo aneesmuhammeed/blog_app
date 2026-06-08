@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
+import 'package:newflu/core/constants/constants.dart';
 import 'package:newflu/core/error/exceptions.dart';
 import 'package:newflu/core/error/failures.dart';
 import 'package:newflu/core/network/connection_checker.dart';
@@ -31,7 +32,7 @@ class BlogRepositoryImpl implements BlogRepository {
   }) async {
     try {
       if (!await (connectionChecker.isConnected)) {
-        return left(Failure("Constants.noConnectionErrorMessage"));
+        return left(Failure(Constants.noConnectionErrorMessage));
       }
       BlogModel blogModel = BlogModel(
         id: const Uuid().v1(),

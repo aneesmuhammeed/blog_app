@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newflu/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:newflu/core/common/widgets/loader.dart';
+import 'package:newflu/core/constants/constants.dart';
 import 'package:newflu/core/theme/app_pallete.dart';
 import 'package:newflu/core/utils/pick_image.dart';
 import 'package:newflu/core/utils/show_snackbar.dart';
@@ -138,42 +139,36 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children:
-                            [
-                                  'Technology',
-                                  'Business',
-                                  'Programming',
-                                  'Entertainment',
-                                ]
-                                .map(
-                                  (e) => Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        if (selectedTopics.contains(e)) {
-                                          selectedTopics.remove(e);
-                                        } else {
-                                          selectedTopics.add(e);
-                                        }
-                                        setState(() {});
-                                      },
-                                      child: Chip(
-                                        color: selectedTopics.contains(e)
-                                            ? MaterialStatePropertyAll(
-                                                AppPallete.gradient1,
-                                              )
-                                            : null,
-                                        label: Text(e),
-                                        side: selectedTopics.contains(e)
-                                            ? null
-                                            : BorderSide(
-                                                color: AppPallete.borderColor,
-                                              ),
-                                      ),
-                                    ),
+                        children: Constants.topics
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (selectedTopics.contains(e)) {
+                                      selectedTopics.remove(e);
+                                    } else {
+                                      selectedTopics.add(e);
+                                    }
+                                    setState(() {});
+                                  },
+                                  child: Chip(
+                                    color: selectedTopics.contains(e)
+                                        ? MaterialStatePropertyAll(
+                                            AppPallete.gradient1,
+                                          )
+                                        : null,
+                                    label: Text(e),
+                                    side: selectedTopics.contains(e)
+                                        ? null
+                                        : BorderSide(
+                                            color: AppPallete.borderColor,
+                                          ),
                                   ),
-                                )
-                                .toList(),
+                                ),
+                              ),
+                            )
+                            .toList(),
                       ),
                     ),
                     SizedBox(height: 10),
